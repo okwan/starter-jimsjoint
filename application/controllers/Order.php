@@ -85,7 +85,7 @@ class Order extends Application {
        $this->data['title'] = 'Checking Out';
         $this->data['pagebody'] = 'show_order';
         $this->data['order_num'] = $order_num;
-      $this->data['okornot'] = $this->orders->validate($order_num) ? '' : 'disabled';
+        $this->data['okornot'] = $this->orders->validate($order_num) ? '' : 'disabled';
         //FIXME
 
         $this->data['total'] = number_format($this->orders->total($order_num), 2);
@@ -108,14 +108,14 @@ class Order extends Application {
 		$record = $this->orders->get($order_num);
 		$record->date = date(DATE_ATOM);
 		$record->status = 'c';
-		$record->total = $this-orders->total($order_num);
+		$record->total = $this->orders->total($order_num);
 		$this->orders->update($record);
         redirect('/');
     }
 
     // cancel the order
     function cancel($order_num) {
-        $this->orderitems->delete_som($order_num);
+        $this->orderitems->delete_some($order_num);
 		$record = $this->orders->get($order_num);
 		$record->status = 'x';
 		$this->orders->update($record);
